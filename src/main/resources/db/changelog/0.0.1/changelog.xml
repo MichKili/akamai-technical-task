@@ -18,7 +18,7 @@
 
         <createTable tableName="social_network_post"
                      schemaName="akamai">
-            <column name="id" type="bigint">
+            <column name="id" type="bigint" autoIncrement="true" startWith="15" generationType="ALWAYS" defaultOnNull="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="post_date" type="date"/>
@@ -27,5 +27,15 @@
             <column name="view_count" type="bigint"/>
         </createTable>
     </changeSet>
+<!--    <changeSet id="3" author="mkilian">-->
+<!--        <addAutoIncrement columnDataType="bigint"-->
+<!--                          columnName="id"-->
+<!--                          defaultOnNull="true"-->
+<!--                          generationType="ALWAYS"-->
+<!--                          incrementBy="1"-->
+<!--                          schemaName="public"-->
+<!--                          startWith="100"-->
+<!--                          tableName="person"/>-->
+<!--    </changeSet>-->
 
 </databaseChangeLog>
