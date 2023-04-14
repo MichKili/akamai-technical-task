@@ -2,9 +2,11 @@ package com.akamai.technical.task.util;
 
 import com.akamai.technical.task.exception.PropertyNotExistException;
 import com.akamai.technical.task.model.dto.SocialNetworkPostDto;
+import org.springframework.test.context.ActiveProfiles;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+@ActiveProfiles("dev")
 public class ValidationUtilTest {
 
     @DataProvider(name = "data-provider-correct")
