@@ -1,5 +1,6 @@
 package com.akamai.technical.task.service;
 
+import com.akamai.technical.task.exception.SocialNetworkPostNotFoundException;
 import com.akamai.technical.task.model.PageCriteria;
 import com.akamai.technical.task.model.SocialNetworkPost;
 import com.akamai.technical.task.model.SocialNetworkPostInput;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.context.ActiveProfiles;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -29,6 +31,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+@ActiveProfiles("dev")
 public class SocialNetworkPostServiceImplTest {
 
     public static final long ID = 1L;
@@ -52,7 +55,7 @@ public class SocialNetworkPostServiceImplTest {
         //given
         SocialNetworkPost post = buildPost(ID, AUTHOR_MICHAL);
         SocialNetworkPostDto expectedPostDto = buildPostDto(ID);
-        given(repository.findById(any())).willReturn(Optional.of(post));
+        given(repository.findById(ID)).willReturn(Optional.of(post));
         given(mapper.map(refEq(post), eq(SocialNetworkPostDto.class))).willReturn(expectedPostDto);
 
         //when
@@ -62,6 +65,14 @@ public class SocialNetworkPostServiceImplTest {
         assertThat(actualPostDto).isEqualTo(expectedPostDto);
         verify(repository, Mockito.atMostOnce()).findById(ID);
         verify(mapper, Mockito.atMostOnce()).map(any(), eq(SocialNetworkPostDto.class));
+    }
+    @Test(expectedExceptions = SocialNetworkPostNotFoundException.class)
+    void should_throw_exception_when_not_found_post_during_fetching_by_id() {
+        //given
+        given(repository.findById(ID)).willReturn(Optional.empty());
+
+        //when
+        service.getPostsById(ID);
     }
 
     @Test
@@ -112,7 +123,7 @@ public class SocialNetworkPostServiceImplTest {
     }
 
     @Test
-    void should_Create_post_and_get_proper_id_and_invoke_mandatory_services() {
+    void should_create_post_and_get_proper_id_and_invoke_mandatory_services() {
         //given
         SocialNetworkPostInput socialNetworkPostInput = buildPostInput(AUTHOR_MICHAL);
         SocialNetworkPost post = buildPost(ID, AUTHOR_MICHAL);
@@ -139,7 +150,7 @@ public class SocialNetworkPostServiceImplTest {
 
         SocialNetworkPost beforeChangesPost = buildPost(ID, AUTHOR_MICHAL);
         SocialNetworkPost updatedPost = buildPost(ID, AUTHOR_MAREK);
-        given(repository.findById(any())).willReturn(Optional.of(beforeChangesPost));
+        given(repository.findById(ID)).willReturn(Optional.of(beforeChangesPost));
         given(mapper.map(refEq(changedPostDto), eq(SocialNetworkPost.class))).willReturn(updatedPost);
         given(repository.save(any())).willReturn(updatedPost);
 
@@ -149,21 +160,40 @@ public class SocialNetworkPostServiceImplTest {
         //then
         verify(repository, Mockito.atMostOnce()).save(any());
         verify(repository, Mockito.atMostOnce()).findById(ID);
-        verify(mapper, Mockito.atMostOnce()).map(any(), eq(SocialNetworkPost.class));
+        verify(mapper, Mockito.atMostOnce()).map(refEq(changedPostDto), eq(SocialNetworkPost.class));
+    }
+    @Test(expectedExceptions = SocialNetworkPostNotFoundException.class)
+    void should_throw_exception_when_not_found_post_during_update() {
+        //given
+        SocialNetworkPostDto changedPostDto = buildPostDto(ID);
+        changedPostDto.setAuthor(AUTHOR_MAREK);
+        given(repository.findById(ID)).willReturn(Optional.empty());
+
+        //when
+        service.updatePost(ID, changedPostDto);
     }
 
     @Test
     void should_delete_posts_and_invoke_mandatory_services() {
         //given
         SocialNetworkPost post = buildPost(ID, AUTHOR_MICHAL);
-        given(repository.findById(any())).willReturn(Optional.of(post));
+        given(repository.findById(ID)).willReturn(Optional.of(post));
 
         //when
         service.deletePost(ID);
 
         //then
-        verify(repository, Mockito.atMostOnce()).deleteById(any());
+        verify(repository, Mockito.atMostOnce()).deleteById(ID);
         verify(repository, Mockito.atMostOnce()).findById(ID);
+    }
+
+    @Test(expectedExceptions = SocialNetworkPostNotFoundException.class)
+    void should_throw_exception_when_not_found_post_during_delete() {
+        //given
+        given(repository.findById(ID)).willReturn(Optional.empty());
+
+        //when
+        service.deletePost(ID);
     }
 
     private static SocialNetworkPost buildPost(Long id, String author) {

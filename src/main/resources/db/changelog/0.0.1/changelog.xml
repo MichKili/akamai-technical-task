@@ -25,17 +25,8 @@
             <column name="content" type="varchar(256)"/>
             <column name="author" type="varchar(256)"/>
             <column name="view_count" type="bigint"/>
+            <column name="version" type="bigint"/>
         </createTable>
     </changeSet>
-<!--    <changeSet id="3" author="mkilian">-->
-<!--        <addAutoIncrement columnDataType="bigint"-->
-<!--                          columnName="id"-->
-<!--                          defaultOnNull="true"-->
-<!--                          generationType="ALWAYS"-->
-<!--                          incrementBy="1"-->
-<!--                          schemaName="public"-->
-<!--                          startWith="100"-->
-<!--                          tableName="person"/>-->
-<!--    </changeSet>-->
 
 </databaseChangeLog>
