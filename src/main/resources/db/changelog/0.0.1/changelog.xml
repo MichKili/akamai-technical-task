@@ -25,6 +25,7 @@
             <column name="content" type="varchar(256)"/>
             <column name="author" type="varchar(256)"/>
             <column name="view_count" type="bigint"/>
+            <column name="version" type="bigint"/>
         </createTable>
     </changeSet>
 

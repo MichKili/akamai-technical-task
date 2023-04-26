@@ -18,22 +18,23 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 public class SocialNetworkPostDto {
-    @PositiveOrZero
-    @NotNull
+    @PositiveOrZero(message = "Value should be 0 or positive")
+    @NotNull(message = "This cannot be null value") //MUST BE because u can add null to PositiveZero null elements are considered valid.
     private Long id;
-    @Size(min = 1, max = 256)
-    @NotNull(message = "Content can't be null")
-    @NotBlank
+
+    @Size(min = 1, max = 256, message = "Size has to be between 1 and 256 char")
+    @NotBlank(message = "This cannot be blank value")
     private String content;
-    @Size(min = 1, max = 256)
-    @NotNull
-    @NotBlank
+    @Size(min = 1, max = 256, message = "Size has to be between 1 and 256 char")
+    @NotBlank(message = "This cannot be blank value")
     private String author;
-    @PositiveOrZero
-    @NotNull
+    @PositiveOrZero(message = "Value should be 0 or positive")
+    @NotNull(message = "This cannot be null value")
     private Long viewCount;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @NotNull
+    @NotNull(message = "This cannot be null value")
     private LocalDate postDate;
+
+    private Long version;
 }

@@ -84,6 +84,7 @@ public class SocialNetworkPostServiceImpl implements SocialNetworkPostService {
     public void updatePost(Long id, SocialNetworkPostDto input) {
         SocialNetworkPost post = getIfPostExists(id);
         input.setId(post.getId());
+        input.setVersion(post.getVersion());
         SocialNetworkPost updatedPost = mapper.map(input, SocialNetworkPost.class);
         socialNetworkPostRepository.save(updatedPost);
         log.debug("Post has been successfully updated with id: " + updatedPost.getId());
@@ -96,15 +97,11 @@ public class SocialNetworkPostServiceImpl implements SocialNetworkPostService {
         SocialNetworkPost post = getIfPostExists(id);
         socialNetworkPostRepository.deleteById(post.getId());
         log.debug("Post has been successfully deleted with id: " + post.getId());
-
     }
 
     private SocialNetworkPost getIfPostExists(Long id) {
         return socialNetworkPostRepository
                 .findById(id)
-                .orElseThrow(() -> {
-                    log.debug("Not found Post with given id: " + id);
-                    return new SocialNetworkPostNotFoundException("Not found Post with given id: " + id);
-                });
+                .orElseThrow(() -> new SocialNetworkPostNotFoundException("Not found Post with given id: " + id));
     }
 }
