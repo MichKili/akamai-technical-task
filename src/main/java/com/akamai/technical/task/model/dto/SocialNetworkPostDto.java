@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class SocialNetworkPostDto {
     @PositiveOrZero(message = "Value should be 0 or positive")
-    @NotNull(message = "This cannot be null value") //MUST BE because u can add null to PositiveZero null elements are considered valid.
+    @NotNull(message = "This cannot be null value")
+    //MUST BE because u can add null to PositiveZero null elements are considered valid.
     private Long id;
 
     @Size(min = 1, max = 256, message = "Size has to be between 1 and 256 char")
@@ -37,4 +39,6 @@ public class SocialNetworkPostDto {
     private LocalDate postDate;
 
     private Long version;
+
+    private Set<Long> idList;
 }

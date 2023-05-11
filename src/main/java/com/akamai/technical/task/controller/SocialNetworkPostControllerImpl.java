@@ -7,6 +7,7 @@ import com.akamai.technical.task.service.SocialNetworkPostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,8 @@ public class SocialNetworkPostControllerImpl implements SocialNetworkPostControl
     }
 
     @Override
-    public void updatePost(Long id, SocialNetworkPostDto input) {
+    public void updatePost(Long id, Collection<Long> idList, SocialNetworkPostDto input) {
+        System.out.println(idList);
         socialNetworkPostService.updatePost(id, input);
     }
 
