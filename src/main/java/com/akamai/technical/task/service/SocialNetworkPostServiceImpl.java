@@ -9,6 +9,7 @@ import com.akamai.technical.task.repository.SocialNetworkPostRepository;
 import com.github.dozermapper.core.Mapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -32,15 +33,15 @@ public class SocialNetworkPostServiceImpl implements SocialNetworkPostService {
 
     @Override
     public SocialNetworkPostDto getPostsById(Long id) {
-        SocialNetworkPost socialNetworkPost = getIfPostExists(id);
+        val socialNetworkPost = getIfPostExists(id);
         return mapper.map(socialNetworkPost, SocialNetworkPostDto.class);
     }
 
     @Override
     public List<SocialNetworkPostDto> getPosts(PageCriteria pageCriteria) {
         checkSortProperty(pageCriteria.sortProperty(), SocialNetworkPost.class);
-        PageRequest pageRequest = createPageRequest(pageCriteria);
-        Page<SocialNetworkPost> posts = socialNetworkPostRepository.findAll(pageRequest);
+        val pageRequest = createPageRequest(pageCriteria);
+        val posts = socialNetworkPostRepository.findAll(pageRequest);
         return convertPageToDtoList(posts);
     }
 
@@ -63,8 +64,8 @@ public class SocialNetworkPostServiceImpl implements SocialNetworkPostService {
     @Override
     @Transactional
     public Long createPost(SocialNetworkPostInput input) {
-        SocialNetworkPost socialNetworkPost = buildSocialNetworkPost(input);
-        SocialNetworkPost save = socialNetworkPostRepository.save(socialNetworkPost);
+        val socialNetworkPost = buildSocialNetworkPost(input);
+        val save = socialNetworkPostRepository.save(socialNetworkPost);
         log.debug("Post has been successfully created with id: " + save.getId());
         return save.getId();
     }
@@ -82,10 +83,10 @@ public class SocialNetworkPostServiceImpl implements SocialNetworkPostService {
     @Override
     @Transactional
     public void updatePost(Long id, SocialNetworkPostDto input) {
-        SocialNetworkPost post = getIfPostExists(id);
+        val post = getIfPostExists(id);
         input.setId(post.getId());
         input.setVersion(post.getVersion());
-        SocialNetworkPost updatedPost = mapper.map(input, SocialNetworkPost.class);
+        val updatedPost = mapper.map(input, SocialNetworkPost.class);
         socialNetworkPostRepository.save(updatedPost);
         log.debug("Post has been successfully updated with id: " + updatedPost.getId());
 
@@ -94,7 +95,7 @@ public class SocialNetworkPostServiceImpl implements SocialNetworkPostService {
     @Override
     @Transactional
     public void deletePost(Long id) {
-        SocialNetworkPost post = getIfPostExists(id);
+        val post = getIfPostExists(id);
         socialNetworkPostRepository.deleteById(post.getId());
         log.debug("Post has been successfully deleted with id: " + post.getId());
     }
@@ -102,6 +103,6 @@ public class SocialNetworkPostServiceImpl implements SocialNetworkPostService {
     private SocialNetworkPost getIfPostExists(Long id) {
         return socialNetworkPostRepository
                 .findById(id)
-                .orElseThrow(() -> new SocialNetworkPostNotFoundException("Not found Post with given id: " + id));
+                .orElseThrow(() -> new SocialNetworkPostNotFoundException(String.format("Not found Post with given id: %s", id)));
     }
 }

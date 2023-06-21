@@ -1,7 +1,6 @@
 package com.akamai.technical.task.service;
 
 import com.akamai.technical.task.exception.SocialNetworkPostNotFoundException;
-import com.akamai.technical.task.model.PageCriteria;
 import com.akamai.technical.task.model.SocialNetworkPost;
 import com.akamai.technical.task.model.SocialNetworkPostInput;
 import com.akamai.technical.task.model.dto.SocialNetworkPostDto;
@@ -10,16 +9,12 @@ import com.github.dozermapper.core.Mapper;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,43 +24,48 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.MockitoAnnotations.openMocks;
 
 @ActiveProfiles("dev")
 public class SocialNetworkPostServiceImplTest {
 
-    public static final long ID = 1L;
+    private static final long ID = 1L;
     private static final long ID2 = 2L;
-    public static final String AUTHOR_MICHAL = "Michal";
-    public static final String AUTHOR_MAREK = "Marek";
-    public static final String TEST_CONTENT = "Test Post";
+    private static final String AUTHOR_MICHAL = "Michal";
+    private static final String AUTHOR_MAREK = "Marek";
+    private static final String TEST_CONTENT = "Test Post";
+
+    private final SocialNetworkPostServiceTestHelper testFactory = new SocialNetworkPostServiceTestHelper();
+
     @Mock
     private SocialNetworkPostRepository repository;
     @Mock
     private Mapper mapper;
     @InjectMocks
     private SocialNetworkPostServiceImpl service;
+
     @BeforeMethod
     public void setUp() {
-        initMocks(this);
+        openMocks(this);
     }
 
     @Test
     void should_get_post_with_correctly_mapped_values_and_invoke_mandatory_services() {
         //given
-        SocialNetworkPost post = buildPost(ID, AUTHOR_MICHAL);
-        SocialNetworkPostDto expectedPostDto = buildPostDto(ID);
+        final var post = testFactory.buildPost(ID, AUTHOR_MICHAL, TEST_CONTENT);
+        final var expectedPostDto = testFactory.buildPostDto(post);
         given(repository.findById(ID)).willReturn(Optional.of(post));
         given(mapper.map(refEq(post), eq(SocialNetworkPostDto.class))).willReturn(expectedPostDto);
 
         //when
-        SocialNetworkPostDto actualPostDto = service.getPostsById(ID);
+        final var actualPostDto = service.getPostsById(ID);
 
         //then
         assertThat(actualPostDto).isEqualTo(expectedPostDto);
         verify(repository, Mockito.atMostOnce()).findById(ID);
         verify(mapper, Mockito.atMostOnce()).map(any(), eq(SocialNetworkPostDto.class));
     }
+
     @Test(expectedExceptions = SocialNetworkPostNotFoundException.class)
     void should_throw_exception_when_not_found_post_during_fetching_by_id() {
         //given
@@ -78,21 +78,21 @@ public class SocialNetworkPostServiceImplTest {
     @Test
     void should_get_posts_with_correctly_mapped_values_and_invoke_mandatory_services() {
         //given
-        SocialNetworkPost post1 = buildPost(ID, AUTHOR_MICHAL);
-        SocialNetworkPost post2 = buildPost(ID2, AUTHOR_MICHAL);
-        PageRequest pageRequest = createPageRequest();
-        PageCriteria pageCriteria = createPageCriteria();
-        Page<SocialNetworkPost> page = new PageImpl<>(List.of(post2, post1));
+        final var post1 = testFactory.buildPost(ID, AUTHOR_MICHAL, TEST_CONTENT);
+        final var post2 = testFactory.buildPost(ID2, AUTHOR_MICHAL, TEST_CONTENT);
+        final var pageRequest = testFactory.createPageRequest();
+        final var pageCriteria = testFactory.createPageCriteria();
+        final var page = new PageImpl<>(List.of(post2, post1));
 
-        SocialNetworkPostDto expectedPostDto = buildPostDto(ID);
-        SocialNetworkPostDto expectedPostDto2 = buildPostDto(ID2);
-        List<SocialNetworkPostDto> expectedPostDtoList = List.of(expectedPostDto2, expectedPostDto);
+        final var expectedPostDto = testFactory.buildPostDto(post1);
+        final var expectedPostDto2 = testFactory.buildPostDto(post2);
+        final var expectedPostDtoList = List.of(expectedPostDto2, expectedPostDto);
         given(repository.findAll(pageRequest)).willReturn(page);
         given(mapper.map(refEq(post1), eq(SocialNetworkPostDto.class))).willReturn(expectedPostDto);
         given(mapper.map(refEq(post2), eq(SocialNetworkPostDto.class))).willReturn(expectedPostDto2);
 
         //when
-        List<SocialNetworkPostDto> actualPostDtoList = service.getPosts(pageCriteria);
+        final var actualPostDtoList = service.getPosts(pageCriteria);
 
         //then
         assertThat(actualPostDtoList)
@@ -104,34 +104,17 @@ public class SocialNetworkPostServiceImplTest {
 
     }
 
-    private static PageRequest createPageRequest() {
-        return PageRequest.of(
-                0,
-                2,
-                Sort.Direction.DESC,
-                "viewCount"
-        );
-    }
-
-    private static PageCriteria createPageCriteria() {
-        return new PageCriteria(
-                0,
-                2,
-                "viewCount",
-                false
-        );
-    }
 
     @Test
     void should_create_post_and_get_proper_id_and_invoke_mandatory_services() {
         //given
-        SocialNetworkPostInput socialNetworkPostInput = buildPostInput(AUTHOR_MICHAL);
-        SocialNetworkPost post = buildPost(ID, AUTHOR_MICHAL);
-        Long expectedIs = post.getId();
+        final var socialNetworkPostInput = buildPostInput(AUTHOR_MICHAL);
+        final var post = testFactory.buildPost(ID, AUTHOR_MICHAL, TEST_CONTENT);
+        final var expectedIs = post.getId();
         given(repository.save(any())).willReturn(post);
 
         //when
-        Long expectedId = service.createPost(socialNetworkPostInput);
+        final var expectedId = service.createPost(socialNetworkPostInput);
 
         //then
         assertThat(expectedId).isEqualTo(expectedIs);
@@ -145,11 +128,11 @@ public class SocialNetworkPostServiceImplTest {
     @Test
     void should_update_post_and_invoke_mandatory_services() {
         //given
-        SocialNetworkPostDto changedPostDto = buildPostDto(ID);
+        final var changedPostDto = testFactory.buildPostDto(ID, AUTHOR_MICHAL, TEST_CONTENT);
         changedPostDto.setAuthor(AUTHOR_MAREK);
 
-        SocialNetworkPost beforeChangesPost = buildPost(ID, AUTHOR_MICHAL);
-        SocialNetworkPost updatedPost = buildPost(ID, AUTHOR_MAREK);
+        final var beforeChangesPost = testFactory.buildPost(ID, AUTHOR_MICHAL, TEST_CONTENT);
+        final var updatedPost = testFactory.buildPost(ID, AUTHOR_MAREK, TEST_CONTENT);
         given(repository.findById(ID)).willReturn(Optional.of(beforeChangesPost));
         given(mapper.map(refEq(changedPostDto), eq(SocialNetworkPost.class))).willReturn(updatedPost);
         given(repository.save(any())).willReturn(updatedPost);
@@ -162,10 +145,11 @@ public class SocialNetworkPostServiceImplTest {
         verify(repository, Mockito.atMostOnce()).findById(ID);
         verify(mapper, Mockito.atMostOnce()).map(refEq(changedPostDto), eq(SocialNetworkPost.class));
     }
+
     @Test(expectedExceptions = SocialNetworkPostNotFoundException.class)
     void should_throw_exception_when_not_found_post_during_update() {
         //given
-        SocialNetworkPostDto changedPostDto = buildPostDto(ID);
+        final var changedPostDto = testFactory.buildPostDto(ID, AUTHOR_MICHAL, TEST_CONTENT);
         changedPostDto.setAuthor(AUTHOR_MAREK);
         given(repository.findById(ID)).willReturn(Optional.empty());
 
@@ -176,7 +160,7 @@ public class SocialNetworkPostServiceImplTest {
     @Test
     void should_delete_posts_and_invoke_mandatory_services() {
         //given
-        SocialNetworkPost post = buildPost(ID, AUTHOR_MICHAL);
+        final var post = testFactory.buildPost(ID, AUTHOR_MICHAL, TEST_CONTENT);
         given(repository.findById(ID)).willReturn(Optional.of(post));
 
         //when
@@ -196,27 +180,6 @@ public class SocialNetworkPostServiceImplTest {
         service.deletePost(ID);
     }
 
-    private static SocialNetworkPost buildPost(Long id, String author) {
-        return SocialNetworkPost
-                .builder()
-                .id(id)
-                .postDate(LocalDate.now())
-                .viewCount(0L)
-                .author(author)
-                .content(TEST_CONTENT)
-                .build();
-    }
-
-    private static SocialNetworkPostDto buildPostDto(Long id) {
-        return SocialNetworkPostDto
-                .builder()
-                .id(id)
-                .postDate(LocalDate.now())
-                .viewCount(0L)
-                .author(AUTHOR_MICHAL)
-                .content(TEST_CONTENT)
-                .build();
-    }
 
     @AfterMethod
     public void resetService() {
