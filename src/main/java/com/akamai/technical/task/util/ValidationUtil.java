@@ -9,7 +9,10 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @Slf4j
-@UtilityClass
+@UtilityClass //not good idea -> it is better to create it like a bean and there is less pain in unit test because static is pain with unit testing etc.
+//+ there is a problem with fields declaration. If we create public final field @UtilityClass made it static with bad naming convention
+// (Because there is no constant naming convention with uppercase) + there is automatically created logger as const with bad naming convention
+// Little thing bad it is a little destroy to readability of code.
 public class ValidationUtil {
 
     public static <T> void checkSortProperty(String property, Class<T> clazz) {
