@@ -1,0 +1,16 @@
+[{
+    "listen": "prerequest",
+    "script": {
+        "id": "cbf8fa55-c1ff-49a5-b6e8-c1469272541d",
+        "type": "text/javascript",
+        "exec": ["const  options = {", "  url: pm.environment.get(\"TOKEN_ENDPOINT\"),", "  method: \"POST\",", "  headers: {", "    \"Content-Type\": \"application/x-www-form-urlencoded\",", "  },", "  body: {", "    mode: \"urlencoded\",", "    urlencoded: [", "            {key: \"grant_type\", value: \"client_credentials\"},", "            {key: \"client_id\", value: pm.environment.get(\"CLIENT_ID\")},", "            {key: \"client_secret\", value: pm.environment.get(\"CLIENT_SECRET\")}", "        ]", "  }", "};", "", "pm.sendRequest(options, function (err, res) {", "    if (err) {", "        console.log(err);", "    }", "    else {", "        pm.environment.set(\"bearerToken\", res.json().access_token);", "    }", "});"]
+    }
+}, {
+    "listen": "test",
+    "script": {
+        "id": "1f3ceed2-8f77-4814-bfe9-bc6813d35a3f",
+        "type": "text/javascript",
+        "exec": [""]
+    }
+}
+]

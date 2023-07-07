@@ -1,6 +1,8 @@
 package com.akamai.technical.task.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -11,6 +13,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Collections.singletonList;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestControllerAdvice
 public class ControllerAdvisor {
@@ -67,7 +72,15 @@ public class ControllerAdvisor {
                 HttpStatus.BAD_REQUEST
         );
     }
-
+    @ExceptionHandler(HttpMessageConversionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, Object> handleHttpMessageConversionException(final HttpMessageConversionException ex) {
+        return getExceptionResponseTemplate(
+                "Unable to process request data.",
+                Collections.singletonList(ex.getMessage()),
+                HttpStatus.BAD_REQUEST
+        );
+    }
 
     private static Map<String, Object> getExceptionResponseTemplate(
             String title,
