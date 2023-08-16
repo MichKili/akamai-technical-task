@@ -31,7 +31,7 @@ public class ControllerAdvisor {
     public Map<String, Object> handleDefaultException(Exception e) {
         return getExceptionResponseTemplate(
                 "Internal Server Error",
-                Collections.singletonList(e.getMessage()),
+                Collections.singletonList("There is an internal server problem. Please stand by"),
                 HttpStatus.INTERNAL_SERVER_ERROR
         );
     }
