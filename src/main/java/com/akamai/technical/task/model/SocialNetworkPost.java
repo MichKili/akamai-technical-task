@@ -1,33 +1,28 @@
 package com.akamai.technical.task.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
+import java.time.Instant;
 
-@Entity
 //DONT USE @DATA to entity - problem with hashcode and equals lack of lazy fetch and problem with hashSets
-@NoArgsConstructor
-@Builder
-@AllArgsConstructor
+@Entity
 @Getter
 @Setter
-public class SocialNetworkPost {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+public class SocialNetworkPost extends BaseEntity {
+
     private String content;
     private String author;
     private Long viewCount;
-    private LocalDate postDate;
-    @Version
-    private Long version;
+
+    @CreationTimestamp
+    private Instant postDate;
 }
