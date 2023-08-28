@@ -1,0 +1,3571 @@
+{
+	"info": {
+		"_postman_id": "10bb57fb-02d3-4d6a-b898-1eb47bbdd100",
+		"name": "Loyalty service API Michał",
+		"description": "Contact Support:\n Email: royalty@paymenttools.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28134782"
+	},
+	"item": [
+		{
+			"name": "Account Transactions",
+			"item": [
+				{
+					"name": "set Transaction Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionStatus\": \"CANCELLED\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions/:transactionId/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"transactions",
+								":transactionId",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{ACCOUNT_ID}}"
+								},
+								{
+									"key": "transactionId",
+									"value": "d0a7f77d-42f6-49ad-a4f0-57692088861a"
+								}
+							]
+						},
+						"description": "Set transaction status"
+					},
+					"response": [
+						{
+							"name": "Transaction status changed",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionStatus\": \"CANCELLED\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions/:transactionId/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions",
+										":transactionId",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										},
+										{
+											"key": "transactionId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"actualBalance\": 1200.03,\n  \"availableAmount\": 100,\n  \"refundedAmount\": 100\n}"
+						},
+						{
+							"name": "Invalid request input",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionStatus\": \"CANCELLED\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions/:transactionId/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions",
+										":transactionId",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										},
+										{
+											"key": "transactionId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Access Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionStatus\": \"CANCELLED\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions/:transactionId/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions",
+										":transactionId",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										},
+										{
+											"key": "transactionId"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Transaction not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionStatus\": \"CANCELLED\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions/:transactionId/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions",
+										":transactionId",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										},
+										{
+											"key": "transactionId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Service temporary unavailable",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionStatus\": \"CANCELLED\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions/:transactionId/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions",
+										":transactionId",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										},
+										{
+											"key": "transactionId"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get Transactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions?startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z&page=0&size=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2023-06-01T00:00:00.000Z",
+									"description": "From which day to return the transaction in ISO-8601 representation"
+								},
+								{
+									"key": "endDate",
+									"value": "2023-06-30T00:00:00.000Z",
+									"description": "By what day to return the transaction in ISO-8601 representation"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Page number for pagination"
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"description": "Page size for pagination"
+								}
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{ACCOUNT_ID}}"
+								}
+							]
+						},
+						"description": "Get transactions history"
+					},
+					"response": [
+						{
+							"name": "Transactions history received",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions?startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z&page=0&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2023-06-01T00:00:00.000Z",
+											"description": "From which day to return the transaction in ISO-8601 representation"
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-30T00:00:00.000Z",
+											"description": "By what day to return the transaction in ISO-8601 representation"
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number for pagination"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size for pagination"
+										}
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"meta\": {\n    \"page\": {\n      \"first\": true,\n      \"last\": false,\n      \"size\": 10,\n      \"currentPage\": 1,\n      \"offset\": 10,\n      \"totalPages\": 5,\n      \"totalElements\": 50,\n      \"numberOfElements\": 10\n    }\n  },\n  \"data\": [\n    {\n      \"id\": \"7a822bb0-10c7-11ee-be56-0242ac120002\",\n      \"createdAt\": \"2023-06-20T06:58:36.402Z\",\n      \"amount\": 99.99,\n      \"transactionType\": \"EARN\",\n      \"referenceCode\": \"REF-007\",\n      \"referenceText\": \"Product1 payment\",\n      \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n      \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n      \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\",\n      \"actualBalance\": 1200.03,\n      \"linkedTransactionId\": \"44c70bee-10c7-11ee-be56-0242ac120054\",\n      \"failureReason\": \"Insufficient funds\",\n      \"transactionStatus\": \"SUCCESS\"\n    },\n    {\n      \"id\": \"7a822bb0-10c7-11ee-be56-0242ac120002\",\n      \"createdAt\": \"2023-06-20T06:58:36.402Z\",\n      \"amount\": 99.99,\n      \"transactionType\": \"EARN\",\n      \"referenceCode\": \"REF-007\",\n      \"referenceText\": \"Product1 payment\",\n      \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n      \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n      \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\",\n      \"actualBalance\": 1200.03,\n      \"linkedTransactionId\": \"44c70bee-10c7-11ee-be56-0242ac120054\",\n      \"failureReason\": \"Insufficient funds\",\n      \"transactionStatus\": \"SUCCESS\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Invalid request input",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions?startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z&page=0&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2023-06-01T00:00:00.000Z",
+											"description": "From which day to return the transaction in ISO-8601 representation"
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-30T00:00:00.000Z",
+											"description": "By what day to return the transaction in ISO-8601 representation"
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number for pagination"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size for pagination"
+										}
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Access Forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions?startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z&page=0&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2023-06-01T00:00:00.000Z",
+											"description": "From which day to return the transaction in ISO-8601 representation"
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-30T00:00:00.000Z",
+											"description": "By what day to return the transaction in ISO-8601 representation"
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number for pagination"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size for pagination"
+										}
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Account not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions?startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z&page=0&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2023-06-01T00:00:00.000Z",
+											"description": "From which day to return the transaction in ISO-8601 representation"
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-30T00:00:00.000Z",
+											"description": "By what day to return the transaction in ISO-8601 representation"
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number for pagination"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size for pagination"
+										}
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Service temporary unavailable",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions?startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z&page=0&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2023-06-01T00:00:00.000Z",
+											"description": "From which day to return the transaction in ISO-8601 representation"
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-30T00:00:00.000Z",
+											"description": "By what day to return the transaction in ISO-8601 representation"
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number for pagination"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size for pagination"
+										}
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "create Transaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Stores the accountId in an environment or global variable\r",
+									"var transactionId = pm.response.json().id\r",
+									"pm.globals.set(\"TRANSACTION_ID\", transactionId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 100,\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionType\": \"EARN\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"transactions"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{ACCOUNT_ID}}"
+								}
+							]
+						},
+						"description": "Create transaction"
+					},
+					"response": [
+						{
+							"name": "Transaction created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 99.99,\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionType\": \"EARN\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"7a822bb0-10c7-11ee-be56-0242ac120002\",\n  \"accountId\": \"eb2d143e-10c6-11ee-be56-0242ac120002\",\n  \"actualBalance\": 1200.03,\n  \"availableAmount\": 800.15,\n  \"activatedAmount\": 99.99,\n  \"blockedAmount\": 99.99,\n  \"comment\": \"Insufficient funds\",\n  \"transactionStatus\": \"SUCCESS\"\n}"
+						},
+						{
+							"name": "Invalid request input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 99.99,\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionType\": \"EARN\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Access Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 99.99,\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionType\": \"EARN\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Account not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 99.99,\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionType\": \"EARN\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Service temporary unavailable",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 99.99,\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n  \"transactionType\": \"EARN\",\n  \"referenceCode\": \"REF-007\",\n  \"referenceText\": \"Product1 payment\",\n  \"companyId\": \"d2297748-10c6-11ee-be56-0242ac120002\",\n  \"storeId\": \"44c70bee-10c7-11ee-be56-0242ac120002\",\n  \"terminalId\": \"483d5616-10c7-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/transactions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"transactions"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "set Account Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountStatus\": \"INACTIVE\",\n  \"reason\": \"Violation of the term of use\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/accounts/:accountId/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{ACCOUNT_ID}}"
+								}
+							]
+						},
+						"description": "Set account status"
+					},
+					"response": [
+						{
+							"name": "Account status changed",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountStatus\": \"LINKED\",\n  \"reason\": \"Violation of the term of use\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"eb2d143e-10c6-11ee-be56-0242ac120002\",\n  \"accountType\": \"LOYALTY\",\n  \"accountStatus\": \"ACTIVE\",\n  \"currency\": \"EUR\",\n  \"balance\": 1000.17,\n  \"availableAmount\": 800.15,\n  \"activatedAmount\": 99.99,\n  \"blockedAmount\": 99.99,\n  \"createdAt\": \"2023-06-20T06:58:36.402Z\"\n}"
+						},
+						{
+							"name": "Invalid request input",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountStatus\": \"LINKED\",\n  \"reason\": \"Violation of the term of use\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Access Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountStatus\": \"LINKED\",\n  \"reason\": \"Violation of the term of use\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Account not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountStatus\": \"LINKED\",\n  \"reason\": \"Violation of the term of use\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Service temporary unavailable",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountStatus\": \"LINKED\",\n  \"reason\": \"Violation of the term of use\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"status"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "activate Amount",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 10.5,\n  \"currency\": \"EUR\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/accounts/:accountId/activated",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"activated"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{ACCOUNT_ID}}"
+								}
+							]
+						},
+						"description": "Activate amount"
+					},
+					"response": [
+						{
+							"name": "Amount activated successfully",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 100.5,\n  \"currency\": \"EUR\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/activated",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"activated"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"eb2d143e-10c6-11ee-be56-0242ac120002\",\n  \"accountType\": \"LOYALTY\",\n  \"accountStatus\": \"ACTIVE\",\n  \"currency\": \"EUR\",\n  \"balance\": 1000.17,\n  \"availableAmount\": 800.15,\n  \"activatedAmount\": 99.99,\n  \"blockedAmount\": 99.99,\n  \"createdAt\": \"2023-06-20T06:58:36.402Z\"\n}"
+						},
+						{
+							"name": "Invalid request input",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 100.5,\n  \"currency\": \"EUR\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/activated",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"activated"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Access Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 100.5,\n  \"currency\": \"EUR\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/activated",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"activated"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Account not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 100.5,\n  \"currency\": \"EUR\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/activated",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"activated"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Service temporary unavailable",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 100.5,\n  \"currency\": \"EUR\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/activated",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"activated"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "create Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Stores the accountId in an environment or global variable\r",
+									"var accountId = pm.response.json().account.id\r",
+									"pm.globals.set(\"ACCOUNT_ID\", accountId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountType\": \"LOYALTY\",\n  \"currency\": \"EUR\",\n  \"identityExternalId\": \"USER-55\",\n  \"identityType\": \"INDIVIDUAL\",\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/accounts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"accounts"
+							]
+						},
+						"description": "Create account"
+					},
+					"response": [
+						{
+							"name": "Account created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountType\": \"LOYALTY\",\n  \"currency\": \"EUR\",\n  \"identityExternalId\": \"USER-1\",\n  \"identityType\": \"INDIVIDUAL\",\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"account\": {\n    \"id\": \"eb2d143e-10c6-11ee-be56-0242ac120002\",\n    \"accountType\": \"LOYALTY\",\n    \"accountStatus\": \"ACTIVE\",\n    \"currency\": \"EUR\",\n    \"balance\": 1000.17,\n    \"availableAmount\": 800.15,\n    \"activatedAmount\": 99.99,\n    \"blockedAmount\": 99.99,\n    \"createdAt\": \"2023-06-20T06:58:36.402Z\"\n  },\n  \"identity\": {\n    \"id\": \"fcb255a2-10c6-11ee-be56-0242ac120002\",\n    \"identityType\": \"INDIVIDUAL\",\n    \"identityStatus\": \"ACTIVE\"\n  }\n}"
+						},
+						{
+							"name": "Invalid request input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountType\": \"LOYALTY\",\n  \"currency\": \"EUR\",\n  \"identityExternalId\": \"USER-1\",\n  \"identityType\": \"INDIVIDUAL\",\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Access Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountType\": \"LOYALTY\",\n  \"currency\": \"EUR\",\n  \"identityExternalId\": \"USER-1\",\n  \"identityType\": \"INDIVIDUAL\",\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Account already exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountType\": \"LOYALTY\",\n  \"currency\": \"EUR\",\n  \"identityExternalId\": \"USER-1\",\n  \"identityType\": \"INDIVIDUAL\",\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Service temporary unavailable",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountType\": \"LOYALTY\",\n  \"currency\": \"EUR\",\n  \"identityExternalId\": \"USER-1\",\n  \"identityType\": \"INDIVIDUAL\",\n  \"merchantId\": \"2c2f18de-10c6-11ee-be56-0242ac120002\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "create Partner Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"partners\": [\n    \"04327ba9-bfc1-44fb-80bd-2bf500b48bf9\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/accounts/:accountId/partners",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"partners"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{ACCOUNT_ID}}"
+								}
+							]
+						},
+						"description": "Create partner account"
+					},
+					"response": [
+						{
+							"name": "Partner account created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"partners\": [\n    \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120003\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120004\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/partners",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"partners"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"eb2d143e-10c6-11ee-be56-0242ac120002\",\n  \"accountType\": \"LOYALTY\",\n  \"accountStatus\": \"ACTIVE\",\n  \"currency\": \"EUR\",\n  \"balance\": 1000.17,\n  \"availableAmount\": 800.15,\n  \"activatedAmount\": 99.99,\n  \"blockedAmount\": 99.99,\n  \"createdAt\": \"2023-06-20T06:58:36.402Z\"\n}"
+						},
+						{
+							"name": "Invalid request input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"partners\": [\n    \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120003\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120004\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/partners",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"partners"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"eu\",\n      \"detail\": \"eu velit officia aliqua\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ullamco ut\",\n      \"detail\": \"in deserunt in labore\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Access Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"partners\": [\n    \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120003\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120004\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/partners",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"partners"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"eu\",\n      \"detail\": \"eu velit officia aliqua\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ullamco ut\",\n      \"detail\": \"in deserunt in labore\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Account not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"partners\": [\n    \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120003\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120004\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/partners",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"partners"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"eu\",\n      \"detail\": \"eu velit officia aliqua\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ullamco ut\",\n      \"detail\": \"in deserunt in labore\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Partner account already exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"partners\": [\n    \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120003\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120004\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/partners",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"partners"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"eu\",\n      \"detail\": \"eu velit officia aliqua\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ullamco ut\",\n      \"detail\": \"in deserunt in labore\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Service temporary unavailable",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"partners\": [\n    \"2c2f18de-10c6-11ee-be56-0242ac120002\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120003\",\n    \"2c2f18de-10c6-11ee-be56-0242ac120004\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/partners",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"partners"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"eu\",\n      \"detail\": \"eu velit officia aliqua\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ullamco ut\",\n      \"detail\": \"in deserunt in labore\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get Account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/accounts/:accountId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{ACCOUNT_ID}}"
+								}
+							]
+						},
+						"description": "Get account information"
+					},
+					"response": [
+						{
+							"name": "Account info received",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"account\": {\n    \"id\": \"eb2d143e-10c6-11ee-be56-0242ac120002\",\n    \"accountType\": \"LOYALTY\",\n    \"accountStatus\": \"ACTIVE\",\n    \"currency\": \"EUR\",\n    \"balance\": 1000.17,\n    \"availableAmount\": 800.15,\n    \"activatedAmount\": 99.99,\n    \"blockedAmount\": 99.99,\n    \"createdAt\": \"2023-06-20T06:58:36.402Z\"\n  },\n  \"identity\": {\n    \"id\": \"fcb255a2-10c6-11ee-be56-0242ac120002\",\n    \"identityType\": \"INDIVIDUAL\",\n    \"identityStatus\": \"ACTIVE\"\n  }\n}"
+						},
+						{
+							"name": "Invalid request input",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Access Forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Account not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Service temporary unavailable",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "delete Account",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"referenceCode\": \"REF-1\",\n  \"referenceText\": \"Deleted by mistake\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/accounts/:accountId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{ACCOUNT_ID}}"
+								}
+							]
+						},
+						"description": "Delete account"
+					},
+					"response": [
+						{
+							"name": "Account deleted",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"referenceCode\": \"REF-1\",\n  \"referenceText\": \"Deleted by mistake\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Invalid request input",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"referenceCode\": \"REF-1\",\n  \"referenceText\": \"Deleted by mistake\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Access Forbidden",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"referenceCode\": \"REF-1\",\n  \"referenceText\": \"Deleted by mistake\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Account not found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"referenceCode\": \"REF-1\",\n  \"referenceText\": \"Deleted by mistake\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Service temporary unavailable",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"referenceCode\": \"REF-1\",\n  \"referenceText\": \"Deleted by mistake\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId"
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Account log",
+			"item": [
+				{
+					"name": "get Account History Log",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/accounts/:accountId/logs?page=0&size=10&startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"accounts",
+								":accountId",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Page number for pagination"
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"description": "Page size for pagination"
+								},
+								{
+									"key": "startDate",
+									"value": "2023-06-01T00:00:00.000Z",
+									"description": "From which day to return the account log history in ISO-8601 representation."
+								},
+								{
+									"key": "endDate",
+									"value": "2023-06-30T00:00:00.000Z",
+									"description": "By what day to return the account log history in ISO-8601 representation."
+								}
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "{{ACCOUNT_ID}}"
+								}
+							]
+						},
+						"description": "Get account history log."
+					},
+					"response": [
+						{
+							"name": "Account history log received",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/logs?page=0&size=10&startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"logs"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number for pagination"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size for pagination"
+										},
+										{
+											"key": "startDate",
+											"value": "2023-06-01T00:00:00.000Z",
+											"description": "From which day to return the account log history in ISO-8601 representation."
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-30T00:00:00.000Z",
+											"description": "By what day to return the account log history in ISO-8601 representation."
+										}
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"meta\": {\n    \"page\": {\n      \"first\": true,\n      \"last\": false,\n      \"size\": 10,\n      \"currentPage\": 1,\n      \"offset\": 10,\n      \"totalPages\": 5,\n      \"totalElements\": 50,\n      \"numberOfElements\": 10\n    }\n  },\n  \"data\": [\n    {\n      \"id\": \"6b415edb-af34-412a-fd8b-f848d0c4bb34\",\n      \"accountId\": \"urn:uuid:ae1d1744-7470-2d9f-3394-1393ff4b65bc\",\n      \"logType\": \"DELETE\",\n      \"referenceText\": \"adipisicing consequat aute quis fugi\",\n      \"referenceCode\": \"velit\",\n      \"createdAt\": \"1966-08-04T11:12:57.122Z\"\n    },\n    {\n      \"id\": \"urn:uuid:a051a30a-70bc-411c-5ad4-f1f585d6220b\",\n      \"accountId\": \"urn:uuid:39adf4ac-e995-247e-5c81-0bbe15f9832f\",\n      \"logType\": \"CREATE\",\n      \"referenceText\": \"commodo dolore in\",\n      \"referenceCode\": \"proident qui dolor ut ex\",\n      \"createdAt\": \"2009-08-11T07:52:22.214Z\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "InvalidAccountHistoryLogAction",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/logs?page=0&size=10&startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"logs"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number for pagination"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size for pagination"
+										},
+										{
+											"key": "startDate",
+											"value": "2023-06-01T00:00:00.000Z",
+											"description": "From which day to return the account log history in ISO-8601 representation."
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-30T00:00:00.000Z",
+											"description": "By what day to return the account log history in ISO-8601 representation."
+										}
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Access Forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/logs?page=0&size=10&startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"logs"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number for pagination"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size for pagination"
+										},
+										{
+											"key": "startDate",
+											"value": "2023-06-01T00:00:00.000Z",
+											"description": "From which day to return the account log history in ISO-8601 representation."
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-30T00:00:00.000Z",
+											"description": "By what day to return the account log history in ISO-8601 representation."
+										}
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Account not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/logs?page=0&size=10&startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"logs"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number for pagination"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size for pagination"
+										},
+										{
+											"key": "startDate",
+											"value": "2023-06-01T00:00:00.000Z",
+											"description": "From which day to return the account log history in ISO-8601 representation."
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-30T00:00:00.000Z",
+											"description": "By what day to return the account log history in ISO-8601 representation."
+										}
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Service temporary unavailable",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v1/accounts/:accountId/logs?page=0&size=10&startDate=2023-06-01T00:00:00.000Z&endDate=2023-06-30T00:00:00.000Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":accountId",
+										"logs"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Page number for pagination"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "Page size for pagination"
+										},
+										{
+											"key": "startDate",
+											"value": "2023-06-01T00:00:00.000Z",
+											"description": "From which day to return the account log history in ISO-8601 representation."
+										},
+										{
+											"key": "endDate",
+											"value": "2023-06-30T00:00:00.000Z",
+											"description": "By what day to return the account log history in ISO-8601 representation."
+										}
+									],
+									"variable": [
+										{
+											"key": "accountId"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"errors\": [\n    {\n      \"status\": 800,\n      \"title\": \"et deserunt\",\n      \"detail\": \"sed ut\"\n    },\n    {\n      \"status\": 800,\n      \"title\": \"ad fugiat incididunt do proident\",\n      \"detail\": \"ut reprehenderit\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const  options = {",
+					"  url: pm.environment.get(\"TOKEN_ENDPOINT\"),",
+					"  method: \"POST\",",
+					"  headers: {",
+					"    \"Content-Type\": \"application/x-www-form-urlencoded\",",
+					"  },",
+					"  body: {",
+					"    mode: \"urlencoded\",",
+					"    urlencoded: [",
+					"            {key: \"grant_type\", value: \"client_credentials\"},",
+					"            {key: \"client_id\", value: pm.environment.get(\"CLIENT_ID\")},",
+					"            {key: \"client_secret\", value: pm.environment.get(\"CLIENT_SECRET\")}",
+					"        ]",
+					"  }",
+					"};",
+					"",
+					"pm.sendRequest(options, function (err, res) {",
+					"    if (err) {",
+					"        console.log(err);",
+					"    }",
+					"    else {",
+					"        pm.environment.set(\"bearerToken\", res.json().access_token);",
+					"    }",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://10.1.0.66:8080/api"
+		}
+	]
+}
