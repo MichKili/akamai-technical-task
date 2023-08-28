@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class SocialNetworkPostServiceImpl implements SocialNetworkPostService {
                 .content(input.content())
                 .author(input.content())
                 .viewCount(0L)
-                .postDate(LocalDate.now())
+                .postDate(Instant.now())
                 .build();
     }
 

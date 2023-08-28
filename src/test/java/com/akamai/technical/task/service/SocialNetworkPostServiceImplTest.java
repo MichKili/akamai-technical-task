@@ -9,24 +9,20 @@ import com.github.dozermapper.core.Mapper;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.test.context.ActiveProfiles;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.refEq;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.openMocks;
+import static org.mockito.Mockito.*;
 
 @ActiveProfiles("dev")
 @ExtendWith(MockitoExtension.class) //why his dont work? When this exists there should not be needed any init/openMocks anymore..
@@ -38,8 +34,6 @@ public class SocialNetworkPostServiceImplTest {
     private static final String AUTHOR_MAREK = "Marek";
     private static final String TEST_CONTENT = "Test Post";
 
-    private final SocialNetworkPostServiceTestHelper testHelper = new SocialNetworkPostServiceTestHelper();
-
     @Mock
     private SocialNetworkPostRepository repository;
     @Mock
@@ -47,10 +41,7 @@ public class SocialNetworkPostServiceImplTest {
     @InjectMocks
     private SocialNetworkPostServiceImpl service;
 
-    @BeforeMethod
-    public void setUp() {
-        openMocks(this);
-    }
+    private final SocialNetworkPostServiceTestHelper testHelper = new SocialNetworkPostServiceTestHelper();
 
     @Test
     void should_get_post_with_correctly_mapped_values_and_invoke_mandatory_services() {
@@ -58,16 +49,16 @@ public class SocialNetworkPostServiceImplTest {
         final var post = testHelper.buildPost(ID, AUTHOR_MICHAL, TEST_CONTENT);
         final var expectedPostDto = testHelper.buildPostDto(post);
 
-        //when
         given(repository.findById(ID)).willReturn(Optional.of(post));
         given(mapper.map(refEq(post), eq(SocialNetworkPostDto.class))).willReturn(expectedPostDto);
 
+        //when
         final var actualPostDto = service.getPostsById(ID);
 
         //then
         assertThat(actualPostDto).isEqualTo(expectedPostDto);
-        verify(repository, Mockito.atMostOnce()).findById(ID);
-        verify(mapper, Mockito.atMostOnce()).map(any(), eq(SocialNetworkPostDto.class));
+        verify(repository, atMostOnce()).findById(ID);
+        verify(mapper, atMostOnce()).map(any(), eq(SocialNetworkPostDto.class));
     }
 
     @Test(expectedExceptions = SocialNetworkPostNotFoundException.class)
@@ -77,6 +68,11 @@ public class SocialNetworkPostServiceImplTest {
 
         //when
         service.getPostsById(ID);
+
+        //then
+        assertThatThrownBy(() -> service.getPostsById(ID))
+                .isInstanceOf(SocialNetworkPostNotFoundException.class)
+                .hasMessageContaining("Post with id: " + ID + " not found");
     }
 
     @Test
@@ -92,11 +88,11 @@ public class SocialNetworkPostServiceImplTest {
         final var expectedPostDto2 = testHelper.buildPostDto(post2);
         final var expectedPostDtoList = List.of(expectedPostDto2, expectedPostDto);
 
-        //when
         given(repository.findAll(pageRequest)).willReturn(page);
         given(mapper.map(refEq(post1), eq(SocialNetworkPostDto.class))).willReturn(expectedPostDto);
         given(mapper.map(refEq(post2), eq(SocialNetworkPostDto.class))).willReturn(expectedPostDto2);
 
+        //when
         final var actualPostDtoList = service.getPosts(pageCriteria);
 
         //then
@@ -104,8 +100,9 @@ public class SocialNetworkPostServiceImplTest {
                 .isNotNull()
                 .hasSize(expectedPostDtoList.size())
                 .hasSameElementsAs(expectedPostDtoList);
-        verify(repository, Mockito.atMostOnce()).findAll(pageRequest);
-        verify(mapper, Mockito.atMost(2)).map(any(), eq(SocialNetworkPostDto.class));
+        verify(repository, times(1)).findAll(pageRequest);
+        verify(mapper, times(1)).map(post1, SocialNetworkPostDto.class);
+        verify(mapper, times(1)).map(post2, SocialNetworkPostDto.class);
 
     }
 
@@ -117,14 +114,14 @@ public class SocialNetworkPostServiceImplTest {
         final var post = testHelper.buildPost(ID, AUTHOR_MICHAL, TEST_CONTENT);
         final var expectedIs = post.getId();
 
-        //when
         given(repository.save(any())).willReturn(post);
 
+        //when
         final var expectedId = service.createPost(socialNetworkPostInput);
 
         //then
         assertThat(expectedId).isEqualTo(expectedIs);
-        verify(repository, Mockito.atMostOnce()).save(any());
+        verify(repository, atMostOnce()).save(any());
     }
 
     private static SocialNetworkPostInput buildPostInput(String author) {
@@ -140,17 +137,17 @@ public class SocialNetworkPostServiceImplTest {
         final var beforeChangesPost = testHelper.buildPost(ID, AUTHOR_MICHAL, TEST_CONTENT);
         final var updatedPost = testHelper.buildPost(ID, AUTHOR_MAREK, TEST_CONTENT);
 
-        //when
         given(repository.findById(ID)).willReturn(Optional.of(beforeChangesPost));
         given(mapper.map(refEq(changedPostDto), eq(SocialNetworkPost.class))).willReturn(updatedPost);
         given(repository.save(any())).willReturn(updatedPost);
 
+        //when
         service.updatePost(ID, changedPostDto);
 
         //then
-        verify(repository, Mockito.atMostOnce()).save(any());
-        verify(repository, Mockito.atMostOnce()).findById(ID);
-        verify(mapper, Mockito.atMostOnce()).map(refEq(changedPostDto), eq(SocialNetworkPost.class));
+        verify(repository, atMostOnce()).save(any());
+        verify(repository, atMostOnce()).findById(ID);
+        verify(mapper, atMostOnce()).map(refEq(changedPostDto), eq(SocialNetworkPost.class));
     }
 
     @Test(expectedExceptions = SocialNetworkPostNotFoundException.class)
@@ -158,10 +155,9 @@ public class SocialNetworkPostServiceImplTest {
         //given
         final var changedPostDto = testHelper.buildPostDto(ID, AUTHOR_MICHAL, TEST_CONTENT);
         changedPostDto.setAuthor(AUTHOR_MAREK);
-
-        //when
         given(repository.findById(ID)).willReturn(Optional.empty());
 
+        //when
         service.updatePost(ID, changedPostDto);
     }
 
@@ -176,8 +172,8 @@ public class SocialNetworkPostServiceImplTest {
         service.deletePost(ID);
 
         //then
-        verify(repository, Mockito.atMostOnce()).deleteById(ID);
-        verify(repository, Mockito.atMostOnce()).findById(ID);
+        verify(repository, atMostOnce()).deleteById(ID);
+        verify(repository, atMostOnce()).findById(ID);
     }
 
     @Test(expectedExceptions = SocialNetworkPostNotFoundException.class)

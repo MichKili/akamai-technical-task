@@ -6,6 +6,7 @@ import com.akamai.technical.task.model.dto.SocialNetworkPostDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 
@@ -14,7 +15,7 @@ public class SocialNetworkPostServiceTestHelper {
         return SocialNetworkPost
                 .builder()
                 .id(id)
-                .postDate(LocalDate.now())
+                .postDate(Instant.now())
                 .viewCount(0L)
                 .author(author)
                 .content(content)
