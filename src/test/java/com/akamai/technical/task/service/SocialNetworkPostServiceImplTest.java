@@ -7,6 +7,9 @@ import com.akamai.technical.task.model.SocialNetworkPostInput;
 import com.akamai.technical.task.model.dto.SocialNetworkPostDto;
 import com.akamai.technical.task.repository.SocialNetworkPostRepository;
 import com.github.dozermapper.core.Mapper;
+import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -62,7 +65,15 @@ public class SocialNetworkPostServiceImplTest {
         SocialNetworkPostDto actualPostDto = service.getPostsById(ID);
 
         //then
-        assertThat(actualPostDto).isEqualTo(expectedPostDto);
+        SoftAssertions.assertSoftly(assertions -> {
+            assertions.assertThat(actualPostDto.getPostDate()).isEqualTo(expectedPostDto.getPostDate());
+            assertions.assertThat(actualPostDto.getVersion()).isEqualTo(expectedPostDto.getVersion());
+            assertions.assertThat(actualPostDto.getAuthor()).isEqualTo(expectedPostDto.getAuthor());
+            assertions.assertThat(actualPostDto.getContent()).isEqualTo(expectedPostDto.getContent());
+            assertions.assertThat(actualPostDto.getId()).isEqualTo(expectedPostDto.getId());
+            assertions.assertThat(actualPostDto.getViewCount()).isEqualTo(expectedPostDto.getViewCount());
+            assertions.assertThat(actualPostDto.getIdList()).isEqualTo(expectedPostDto.getIdList());
+        });
         verify(repository, Mockito.atMostOnce()).findById(ID);
         verify(mapper, Mockito.atMostOnce()).map(any(), eq(SocialNetworkPostDto.class));
     }
@@ -174,6 +185,7 @@ public class SocialNetworkPostServiceImplTest {
     }
 
     @Test
+    @DisplayName("should delete posts and invoke mandatory services")
     void should_delete_posts_and_invoke_mandatory_services() {
         //given
         SocialNetworkPost post = buildPost(ID, AUTHOR_MICHAL);
@@ -188,6 +200,7 @@ public class SocialNetworkPostServiceImplTest {
     }
 
     @Test(expectedExceptions = SocialNetworkPostNotFoundException.class)
+    @DisplayName("should throw exception when during deletion will not found post")
     void should_throw_exception_when_not_found_post_during_delete() {
         //given
         given(repository.findById(ID)).willReturn(Optional.empty());
@@ -204,6 +217,7 @@ public class SocialNetworkPostServiceImplTest {
                 .viewCount(0L)
                 .author(author)
                 .content(TEST_CONTENT)
+                .version(1L)
                 .build();
     }
 
