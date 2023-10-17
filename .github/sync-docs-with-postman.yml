@@ -1,4 +1,4 @@
-name: Sync documentation with Postman
+name: 'Sync documentation with Postman'
 on:
   pull_request:
     branches: [ "main" ]
@@ -9,38 +9,43 @@ on:
 
 jobs:
   sync-docs-with-postman:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - name: 'Checkout sources'
+        uses: actions/checkout@v3
 
-      - name: Set Up Java
+      - name: 'Set up Java 17'
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
           cache: gradle
 
-      - name: Build the Docker
-        run: docker-compose up -d
+      - name: 'Build the Docker'
+        run: docker-compose up -d spanner
 
-      - name: Generate Open Api Specification - openapi.json
+      - name: 'Generate Open Api Specification - openapi.json'
         run: bash ./gradlew clean generateOpenApiDocs
 
-      - name: Install openapi-to-postmanv2 lib
+      - name: 'Install openapi-to-postmanv2 lib'
         run: npm install -g openapi-to-postmanv2
 
-      - name: Generate Postman Collection Json file from Open Api Specification
+      - name: 'Generate Postman Collection Json file from Open Api Specification'
         run: |
-         openapi2postmanv2 -s build/openapi.json -o build/collection.json -p -O folderStrategy=Tags,requestParametersResolution=Example,alwaysInheritAuthentication=true
+          openapi2postmanv2 -s build/openapi.json -o build/collection.json -p -O folderStrategy=Tags,requestParametersResolution=Example,alwaysInheritAuthentication=true
 
-      - name: Add pre-request script to collection
+      - name: 'Add pre-request script to collection'
         run: |
-         cat <<< $(jq --argjson event "$(<postman/pre-request-script.json)" '. += {$event} | {collection: .}' build/collection.json ) > out.json
+          cat <<< $(jq --argjson event "$(<postman/pre-request-script.json)" --argjson test "$(<postman/test-script.json)" '. += {$event} | {collection: .} | .collection.item[0].item[0] += {event: $test} ' build/collection.json ) > out.json
 
-      - name: Update Collection through Postman API
+      - name: 'Update Collection through Postman API'
         run: |
-         curl --location --request PUT '${{ secrets.POSTMAN_UPDATE_COLLECTION_URL }}' \
-          --header 'Content-Type: application/json' \
-          --header 'X-API-Key: ${{ secrets.POSTMAN_API_KEY }}' \
-          --data @out.json
+          curl --location --request PUT '${{ secrets.POSTMAN_UPDATE_COLLECTION_URL }}' \
+           --header 'Content-Type: application/json' \
+           --header 'X-API-Key: ${{ secrets.POSTMAN_API_KEY }}' \
+           --data @out.json
+          curl --location --request PUT '${{ secrets.POSTMAN_UPDATE_COLLECTION_URL_2 }}' \
+           --header 'Content-Type: application/json' \
+           --header 'X-API-Key: ${{ secrets.POSTMAN_API_KEY_2 }}' \
+           --data @out.json
 

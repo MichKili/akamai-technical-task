@@ -1,0 +1,12 @@
+[
+  {
+    "listen": "test",
+    "script": {
+      "id": "1f3ceed2-8f77-4814-bfe9-bc6813d35a3f",
+      "type": "text/javascript",
+      "exec": [
+        "var giftcardNumber = pm.response.json().cardNumber\npm.environment.set(\"GIFTCARD_NUMBER\", giftcardNumber);"
+      ]
+    }
+  }
+]
