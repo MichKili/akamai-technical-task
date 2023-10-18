@@ -242,9 +242,7 @@ tasks.compileKotlin {
 
 
 ktlint {
-    version = "1.0.0"
-    verbose = true
-
+    version = "1.0.1"
     filter {
         exclude { element -> element.file.path.contains(layout.buildDirectory.dir("generated").get().toString()) }
     }
