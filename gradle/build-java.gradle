@@ -1,0 +1,155 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springboot_version}"
+    id 'io.spring.dependency-management' version '1.1.3'
+    id 'com.google.cloud.tools.jib' version '3.3.2'
+    id 'checkstyle'
+//    id "org.sonarqube" version "3.4.0.2513"
+}
+
+group = 'com.paymenttools'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    agent
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    integration_testImplementation.extendsFrom testImplementation
+    integration_testRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+sourceSets {
+    integration_test {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation "org.zalando:logbook-spring-boot-starter:3.4.0"
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
+    runtimeOnly "io.micrometer:micrometer-registry-prometheus"
+
+    // Flyway
+    implementation 'org.flywaydb:flyway-core:9.21.0'
+    implementation 'org.flywaydb:flyway-gcp-spanner:9.21.0-beta'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // Spanner
+    implementation 'com.google.cloud:spring-cloud-gcp-dependencies:3.5.5'
+    implementation 'com.google.cloud:google-cloud-spanner-jdbc:2.10.0'
+
+    // Openapi / Swagger
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdoc_openapi_version}"
+
+    // MapStruct
+    implementation "org.mapstruct:mapstruct:${mapstruct_version}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
+
+    // Tests
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.testcontainers:testcontainers:${tc_gloud_version}"
+    testImplementation "org.testcontainers:gcloud:${tc_gloud_version}"
+    testImplementation "org.testcontainers:junit-jupiter:${tc_gloud_version}"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testImplementation 'com.google.api:gax:2.23.3'
+
+    // Opentelemetry
+    agent 'io.opentelemetry.javaagent:opentelemetry-javaagent:1.28.0'
+    implementation 'io.opentelemetry:opentelemetry-api:1.28.0'
+    runtimeOnly 'io.opentelemetry.instrumentation:opentelemetry-logback-mdc-1.0:1.28.0-alpha'
+}
+
+jib {
+    from {
+        image = project.properties['jibImageFrom'] ?: 'gcr.io/distroless/java17@sha256:6db9bebd4b5f03d2a28da21b73b21dbdd380e72cb59589fa0216985e82331afb'
+    }
+    to {
+        image = project.properties['jibImageTo'] ?: 'paymenttools/loyalty-service'
+    }
+    container {
+        ports = ['8080', '8081']
+        mainClass = 'com.paymenttools.loyalty.LoyaltyApplication'
+        jvmFlags = ['-XX:InitialRAMPercentage=80.0',
+                    '-XX:MaxRAMPercentage=80.0',
+                    '-javaagent:/app/agent/opentelemetry-javaagent.jar',
+                    '-Dio.opentelemetry.javaagent.slf4j.simpleLogger.logFile=System.out'
+        ]
+    }
+    extraDirectories {
+        paths {
+            path {
+                from = 'agent'
+                into = '/app/agent'
+                getPermissions().put('*.jar', '644')
+            }
+        }
+    }
+}
+
+tasks.register('downloadAgent', Copy) {
+    from configurations.agent
+    rename('(.*)-.*(.jar)', '$1$2')
+    into 'agent/'
+}
+
+tasks.processResources.finalizedBy tasks.downloadAgent
+
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('integrationTest', Test) {
+    description = "Run integration tests"
+    group = "verification"
+    testClassesDirs = sourceSets.integration_test.output.classesDirs
+    classpath = sourceSets.integration_test.runtimeClasspath
+    useJUnitPlatform()
+}
+
+// Checkstyle
+checkstyle {
+    toolVersion '10.6.0'
+    configFile file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+    configProperties.suppressionxpathfilter = file("${project.rootDir}/config/checkstyle/suppressions.xml").absolutePath
+    checkstyleTest.enabled = true
+    ignoreFailures false // fails build on failures
+    maxWarnings = 0 // fails build on checkstyle warnings
+}
+
+checkstyleMain {
+    source = 'src/main/java'
+}
+
+checkstyleTest {
+    source = 'src/test/java'
+}
+
+//project.tasks["sonarqube"].dependsOn "check"
+//
+//sonarqube {
+//    properties {
+//        property "sonar.organization", "paymenttools"
+//        property "sonar.projectKey", "paymenttools-loyalty-service"
+//        property "sonar.host.url", "https://sonarcloud.io"
+//    }
+//}
